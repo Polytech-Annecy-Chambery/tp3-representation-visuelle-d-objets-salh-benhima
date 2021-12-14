@@ -52,12 +52,24 @@ class Section:
 
     # Defines the vertices and faces 
     def generate(self):
-        self.vertices = [ 
-                # Définir ici les sommets
+       self.vertices = [ 
+                [0, 0, 0 ], 
+                [0, 0, self.parameters['height']], 
+                [self.parameters['width'], 0, self.parameters['height']],
+                [self.parameters['width'], 0, 0],      
+				[0, self.parameters['thickness'], 0],
+                [0, self.parameters['thickness'], self.parameters['height']],
+                [self.parameters['width'],  self.parameters['thickness'], self.parameters['height']],
+                [self.parameters['width'], self.parameters['thickness'], 0],
                 ]
-        self.faces = [
-                # définir ici les faces
-                ]   
+       self.faces = [
+                [0, 3, 2, 1],
+                [1, 2, 5, 6],
+                [4, 5, 6, 7],
+                [0, 4, 7, 3],
+                [2, 3, 7, 6],
+                [0, 1, 4, 5],
+                ]
 
     # Checks if the opening can be created for the object x
     def canCreateOpening(self, x):
@@ -77,5 +89,40 @@ class Section:
     # Draws the faces
     def draw(self):
         # A compléter en remplaçant pass par votre code
-        pass
-  
+        gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_FILL) # on trace les faces : GL_FILL
+        gl.glBegin(gl.GL_QUADS) # Tracé d’un quadrilatère
+        gl.glColor3fv([0.5, 0.5, 0.5]) # Couleur gris moyen
+        gl.glVertex3fv([0, 0, 0])
+        gl.glVertex3fv([1, 0, 0])
+        gl.glVertex3fv([1, 0, 1])
+        gl.glVertex3fv([0, 0, 1])
+        
+        gl.glVertex3fv([0, 0, 1])
+        gl.glVertex3fv([1, 0, 1])
+        gl.glVertex3fv([0, 1, 1])
+        gl.glVertex3fv([1, 1, 1])
+        
+        gl.glVertex3fv([1, 1, 0])
+        gl.glVertex3fv([1, 1, 1])
+        gl.glVertex3fv([0, 1, 1])
+        gl.glVertex3fv([0, 1, 0])
+        
+        gl.glVertex3fv([0, 0, 0])
+        gl.glVertex3fv([0, 1, 0])
+        gl.glVertex3fv([1, 1, 0])
+        gl.glVertex3fv([1, 0, 1])
+        
+        gl.glVertex3fv([1, 0, 1])
+        gl.glVertex3fv([1, 0, 0])
+        gl.glVertex3fv([1, 1, 0])
+        gl.glVertex3fv([1, 1, 1])
+        
+        gl.glVertex3fv([0, 0, 0])
+        gl.glVertex3fv([0, 0, 1])
+        gl.glVertex3fv([0, 1, 0])
+        gl.glVertex3fv([0, 1, 1])
+        
+        
+        
+        gl.glEnd()
+          

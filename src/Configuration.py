@@ -18,8 +18,7 @@ class Configuration:
         # yAxisColor: color for the y-axis
         # zAxisColor: color for the z-axis
         # screenPosition: position of the screen on the z-axis (negative value) - on               
-
-        # Sets the parameters
+       
         self.parameters = parameters
         
         # Sets the default parameters   
@@ -33,6 +32,7 @@ class Configuration:
             self.parameters['zAxisColor'] = [0, 0, 1] 
         if 'screenPosition' not in self.parameters:
             self.parameters['screenPosition'] = -10
+        
                     
         # Initializes PyGame
         self.initializePyGame()
@@ -75,7 +75,7 @@ class Configuration:
         gl.glMatrixMode(gl.GL_MODELVIEW)
         gl.glLoadIdentity()
         gl.glTranslatef(0.0,0.0, self.parameters['screenPosition'])       
-        
+        gl.glRotatef(-90, 1, 0, 0)
     # Getter
     def getParameter(self, parameterKey):
         return self.parameters[parameterKey]    
@@ -137,23 +137,38 @@ class Configuration:
     # Processes the KEYDOWN event
     def processKeyDownEvent(self):
         # Rotates around the z-axis                       
-        if self.event.dict['unicode'] == 'Z' or (self.event.mod & pygame.KMOD_SHIFT and self.event.key == pygame.K_z):
-            gl.glRotate(-2.5, 0, 0, 1)                     
-        elif self.event.dict['unicode'] == 'z' or self.event.key == pygame.K_z:
-            gl.glRotate(2.5, 0, 0, 1) 
-        
-        # Draws or suppresses the reference frame
-        elif self.event.dict['unicode'] == 'a' or self.event.key == pygame.K_a:
-            self.parameters['axes'] = not self.parameters['axes']
-            pygame.time.wait(300)
+          if self.event.dict['unicode'] == 'Z' or (self.event.mod & pygame.KMOD_SHIFT and self.event.key == pygame.K_z):
+                gl.glRotate(-2.5, 0, 0, 1)                     
+          elif self.event.dict['unicode'] == 'z' or self.event.key == pygame.K_z:
+                gl.glRotate(2.5, 0, 0, 1) 
+            
+            # Draws or suppresses the reference frame
+          elif self.event.dict['unicode'] == 'a' or self.event.key == pygame.K_a:
+                self.parameters['axes'] = not self.parameters['axes']
+                pygame.time.wait(300)
+  
     
     # Processes the MOUSEBUTTONDOWN event
     def processMouseButtonDownEvent(self):
-        pass
-    
+            if  self.event.button == 4:
+                gl.glRotate(-2.5, 0, 0, 1)                     
+            elif self.event.button == 5:
+                gl.glRotate(2.5, 0, 0, 1) 
+
+        
+        # Draws or suppresses the reference frame
+       
     # Processes the MOUSEMOTION event
     def processMouseMotionEvent(self):
-        pass
+        if pygame.mouse.get_pressed()[0]==1:
+             if  self.event.rel[0]==1:
+                    gl.glRotate(-2.5, 0, 0, 1)
+        if pygame.mouse.get_pressed()[2]==1:
+                if self.event.rel[0]==0:
+                    gl.glTranslatef(0.0, 2, 1)
+
+        
+        
          
     # Displays on screen and processes events    
     def display(self): 
