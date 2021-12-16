@@ -42,7 +42,8 @@ class Wall:
                                       'height': self.parameters['height'], \
                                       'thickness': self.parameters['thickness'], \
                                       'color': self.parameters['color'],
-                                      'position': self.parameters['position']})
+                                      'position': self.parameters['position'],
+                                      'orientation': self.parameters['orientation']})
         self.objects.append(self.parentSection) 
         
     # Getter
@@ -68,6 +69,11 @@ class Wall:
                     
     # Draws the faces
     def draw(self):
-        # A compléter en remplaçant pass par votre code
-        pass
-  
+        # Draws the objects if any
+        for x in self.objects:
+            x.draw() 
+        
+        
+        
+       
+             

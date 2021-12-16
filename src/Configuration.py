@@ -162,7 +162,10 @@ class Configuration:
     def processMouseMotionEvent(self):
         if pygame.mouse.get_pressed()[0]==1:
              if  self.event.rel[0]==1:
-                    gl.glRotate(-2.5, 0, 0, 1)
+                    x,z=self.event.rel
+                    gl.glRotate(5, 0, 0, 1)
+                    gl.glRotate(5, 1, 0, 0)
+                    
         if pygame.mouse.get_pressed()[2]==1:
                 if self.event.rel[0]==0:
                     gl.glTranslatef(0.0, 2, 1)

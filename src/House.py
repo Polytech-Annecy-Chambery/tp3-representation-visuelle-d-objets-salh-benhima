@@ -42,4 +42,12 @@ class House:
     # Draws the house      
     def draw(self):  
         # A compléter en remplaçant pass par votre code
-        pass        
+#        gl.glPushMatrix()
+#        gl.glTranslatef(self.parameters['position'])
+#        gl.glRotate(self.parameters['orientation'], 0, 0, 1)
+        # Draws the objects if any
+        for x in self.objects:
+            x.draw() 
+        
+#        gl.glPopMatrix()
+#         
